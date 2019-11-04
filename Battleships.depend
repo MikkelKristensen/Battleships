@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1572862054 source:c:\users\mikkel\documents\github\battleships\src\ship.cpp
+	<iostream>
+	"Ship.h"
+
+1572860815 c:\users\mikkel\documents\github\battleships\include\ship.h
+
+1572864349 source:c:\users\mikkel\documents\github\battleships\main.cpp
+	<iostream>
+	"Grid.h"
+	<string>
+
+1572865664 source:c:\users\mikkel\documents\github\battleships\src\grid.cpp
+	"Grid.h"
+	<iostream>
+	<string>
+
+1572864009 c:\users\mikkel\documents\github\battleships\include\grid.h
+	<string>
+	<iostream>
+
