@@ -24,6 +24,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
     int x = startPoint.first - 1;
     int y = startPoint.second - 1;
 
+    // If the user input is outside of the grid, return false.
     if(x > 9 || x < 0){
         return false;
     }
@@ -32,6 +33,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
     }
 
     if(direction == "up"){
+        // Check if the ship would go out of the grid, by seeing if its maximum is over 9, or its minimum is under 0.
         // Since shipSize includes the starting position of the ship, it extrudes this position by (shipSize - 1)
         if(y - (shipSize - 1) < 0){
             return false;
