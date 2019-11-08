@@ -5,6 +5,10 @@
 using namespace std;
 
 char mainGrid[10][10];
+char SHIP = 'O';
+char DEAD = 'X';
+char WATER = '-';
+
 
 Grid::Grid()
 {
@@ -13,7 +17,7 @@ Grid::Grid()
     {
         for(int y = 0; y < 10; y++)
         {
-            mainGrid[x][y] = 'O';
+            mainGrid[x][y] = WATER;
         }
     }
 }
@@ -38,7 +42,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
-            mainGrid[x][y - i] = 'X';
+            mainGrid[x][y - i] = SHIP;
         }
     }
     else if(direction == "right"){
@@ -47,7 +51,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
-            mainGrid[x + i][y] = 'X';
+            mainGrid[x + i][y] = SHIP;
         }
     }
     else if(direction == "down"){
@@ -56,7 +60,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
-            mainGrid[x][y + i] = 'X';
+            mainGrid[x][y + i] = SHIP;
         }
     }
     else if(direction == "left"){
@@ -65,7 +69,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
-            mainGrid[x - i][y] = 'X';
+            mainGrid[x - i][y] = SHIP;
         }
     }
     else{
@@ -83,5 +87,33 @@ void Grid::drawGrid()
             cout << mainGrid[x][y] << " ";
         }
         cout << endl;
+    }
+}
+
+bool Grid::attack(pair<int,int> coords,bool super){
+
+    int x = coords.first-1;
+    int y = coords.second-1;
+
+    if (mainGrid[x][y]==SHIP){
+        mainGrid[x][y]=DEAD;
+        return true;
+    }
+    else{
+        return false;
+    }
+
+    if (super){
+        for(int i= -1; i<2; i++){
+            for (int k = -1;k<2; k++){
+                try {
+                    if (mainGrid[k][i]==SHIP){
+                        mainGrid[k][i]=DEAD;
+                    }
+
+                }
+                catch(int e){}
+            }
+        }
     }
 }

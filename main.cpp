@@ -12,5 +12,6 @@ int main()
     grid->addShip(4, {4,4}, "up");
     grid->addShip(3, {7,4}, "right");
     grid->addShip(2, {10,10}, "up");
+    grid->attack({8,4},true);
     grid->drawGrid();
 }
