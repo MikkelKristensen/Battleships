@@ -6,6 +6,10 @@ using namespace std;
 
 char mainGrid[10][10];
 
+char SHIP = 'O';
+char DEAD = 'X';
+char WATER = '-';
+
 Grid::Grid()
 {
     // Initialize every index in our mainGrid to be an O, which represents no ship. This acts as a canvas.
@@ -13,7 +17,7 @@ Grid::Grid()
     {
         for(int y = 0; y < 10; y++)
         {
-            mainGrid[x][y] = 'O';
+            mainGrid[x][y] = WATER;
         }
     }
 }
@@ -38,7 +42,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
-            mainGrid[x][y - i] = 'X';
+            mainGrid[x][y - i] = SHIP;
         }
     }
     else if(direction == "right"){
@@ -47,7 +51,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
-            mainGrid[x + i][y] = 'X';
+            mainGrid[x + i][y] = SHIP;
         }
     }
     else if(direction == "down"){
@@ -56,7 +60,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
-            mainGrid[x][y + i] = 'X';
+            mainGrid[x][y + i] = SHIP;
         }
     }
     else if(direction == "left"){
@@ -65,7 +69,7 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
-            mainGrid[x - i][y] = 'X';
+            mainGrid[x - i][y] = SHIP;
         }
     }
     else{
@@ -85,3 +89,37 @@ void Grid::drawGrid()
         cout << endl;
     }
 }
+bool Grid::attack(pair<int,int> coords,bool super){
+// Creates two variables x and y, and sets them as coordinates. 1 is subtracted to correct for the difference in the arrays 0-9, and the users 1-10 grid understanding.
+    int x = coords.first-1;
+    int y = coords.second-1;
+
+// Checks if super is true to
+    if (super==true){
+        for(int l= x-1; l<=x+1; l++){
+            for (int i = y-1;i<=y+1; i++){
+                try {
+                    if (mainGrid[l][i]==SHIP){
+
+                        mainGrid[l][i]=DEAD;
+                        cout<<'x, y'<<endl;
+                    }
+
+                }
+                catch(int e){
+                cout<<"shit"<<endl;
+                }
+            }
+        }
+    }
+    else{
+         if (mainGrid[x][y]==SHIP){
+        mainGrid[x][y]=DEAD;
+        return true;
+    }
+    else{
+        return false;
+    }
+    }
+}
+
