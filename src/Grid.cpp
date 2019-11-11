@@ -41,9 +41,17 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
             return false;
         }
 
+        // Loop through every ship placement, if any of them already contain a ship, return false.
+        for(int i = 0; i < shipSize; i++){
+            if(mainGrid[x][y - i] ==  SHIP){
+                return false;
+            }
+        }
+        // Finally, loop through every ship placement and place a ship.
         for(int i = 0; i < shipSize; i++){
             mainGrid[x][y - i] = SHIP;
         }
+        return true;
     }
     else if(direction == "right"){
         if(x + (shipSize - 1) > 9){
@@ -51,8 +59,15 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
+            if(mainGrid[x + i][y] ==  SHIP){
+                return false;
+            }
+        }
+
+        for(int i = 0; i < shipSize; i++){
             mainGrid[x + i][y] = SHIP;
         }
+        return true;
     }
     else if(direction == "down"){
         if(y + (shipSize - 1) > 9){
@@ -60,8 +75,15 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
+            if(mainGrid[x][y + i] ==  SHIP){
+                return false;
+            }
+        }
+
+        for(int i = 0; i < shipSize; i++){
             mainGrid[x][y + i] = SHIP;
         }
+        return true;
     }
     else if(direction == "left"){
         if(x - (shipSize - 1)< 0){
@@ -69,11 +91,18 @@ bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
         }
 
         for(int i = 0; i < shipSize; i++){
+            if(mainGrid[x - i][y] ==  SHIP){
+                return false;
+            }
+        }
+
+        for(int i = 0; i < shipSize; i++){
             mainGrid[x - i][y] = SHIP;
         }
+        return true;
     }
     else{
-        cout << "Invalid ship direction" << endl;
+        return false;
     }
 }
 
@@ -89,37 +118,37 @@ void Grid::drawGrid()
         cout << endl;
     }
 }
+
 bool Grid::attack(pair<int,int> coords,bool super){
-// Creates two variables x and y, and sets them as coordinates. 1 is subtracted to correct for the difference in the arrays 0-9, and the users 1-10 grid understanding.
-    int x = coords.first-1;
-    int y = coords.second-1;
+// Creates two variables x and y, and sets them as coordinates. 1 is subtracted to correct for the difference in the arrays 0-9,
+// and the users 1-10 grid understanding.
+    int x = coords.first - 1;
+    int y = coords.second - 1;
 
 // Checks if super is true to
-    if (super==true){
-        for(int l= x-1; l<=x+1; l++){
-            for (int i = y-1;i<=y+1; i++){
+    if (super){
+        for(int l = x - 1; l <= x + 1; l++){
+            for (int i = y - 1; i <= y + 1; i++){
                 try {
-                    if (mainGrid[l][i]==SHIP){
-
-                        mainGrid[l][i]=DEAD;
-                        cout<<'x, y'<<endl;
+                    if (mainGrid[l][i] == SHIP){
+                        mainGrid[l][i] = DEAD;
                     }
 
                 }
                 catch(int e){
-                cout<<"shit"<<endl;
+                    cout<<"DEBUG: Shooting at " << l << ", " << i << " failed."<<endl;
                 }
             }
         }
     }
-    else{
-         if (mainGrid[x][y]==SHIP){
-        mainGrid[x][y]=DEAD;
-        return true;
-    }
-    else{
-        return false;
-    }
+    else{ // If not using a super attack.
+        if(mainGrid[x][y] == SHIP){
+            mainGrid[x][y] = DEAD;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
 
