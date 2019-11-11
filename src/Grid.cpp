@@ -95,25 +95,31 @@ bool Grid::attack(pair<int,int> coords,bool super){
     int x = coords.first-1;
     int y = coords.second-1;
 
-    if (mainGrid[x][y]==SHIP){
+
+    if (super==true){
+        for(int l= x-1; l<=x+1; l++){
+            for (int i = y-1;i<=y+1; i++){
+                try {
+                    if (mainGrid[l][i]==SHIP){
+
+                        mainGrid[l][i]=DEAD;
+                        cout<<'x, y'<<endl;
+                    }
+
+                }
+                catch(int e){
+                cout<<"shit"<<endl;
+                }
+            }
+        }
+    }
+    else{
+         if (mainGrid[x][y]==SHIP){
         mainGrid[x][y]=DEAD;
         return true;
     }
     else{
         return false;
     }
-
-    if (super){
-        for(int i= -1; i<2; i++){
-            for (int k = -1;k<2; k++){
-                try {
-                    if (mainGrid[k][i]==SHIP){
-                        mainGrid[k][i]=DEAD;
-                    }
-
-                }
-                catch(int e){}
-            }
-        }
     }
 }
