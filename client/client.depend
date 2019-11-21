@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1574346935 source:c:\users\mikkel\documents\github\battleships\client\main.cpp
+	<iostream>
+	<ConnectToServer.h>
+	"Grid.h"
+	<string>
+	<sstream>
+	<algorithm>
+
+1574344251 c:\users\mikkel\documents\github\battleships\client\include\connecttoserver.h
+	<Grid.h>
+
+1574346905 source:c:\users\mikkel\documents\github\battleships\client\src\connecttoserver.cpp
+	<windows.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+	<Grid.h>
+	"ConnectToServer.h"
+
+1574347421 source:c:\users\mikkel\documents\github\battleships\client\src\grid.cpp
+	"Grid.h"
+	<iostream>
+	<string>
+
+1574343863 c:\users\mikkel\documents\github\battleships\client\include\grid.h
+	<string>
+	<iostream>
+

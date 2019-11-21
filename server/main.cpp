@@ -34,7 +34,7 @@ void threadfunc(SOCKET Client, SOCKET otherClient, string msg){
         if (iResult > 0){
 
             // Make the last index a null, because C uses null terminators when displaying strings.
-            recvbuf[(int)strlen(recvbuf)] = NULL;
+            recvbuf[iResult] = NULL;
 
             // Send the input to the other client.
             iSendResult = send(otherClient, recvbuf, (int)strlen(recvbuf), 0);

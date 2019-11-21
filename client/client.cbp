@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add library="libws2_32.a" />
@@ -25,6 +26,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -35,7 +37,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/ConnectToServer.h" />
+		<Unit filename="include/Grid.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/ConnectToServer.cpp" />
+		<Unit filename="src/Grid.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
