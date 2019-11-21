@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1544088384 source:d:\cloud\git\pcss\lecture11\minimalserver\main.cpp
+	<windows.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<stdlib.h>
+	<stdio.h>
+
+1574095537 source:c:\users\frederik carlsen\onedrive - aalborg universitet\skrivebord\pcss-master\lecture11\minimalserver\main.cpp
+	<windows.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<stdlib.h>
+	<stdio.h>
+
+1574332161 source:c:\users\mikkel\desktop\uni\3rd semester\programming of complex software systems\projects\lecture11\minimalserver\main.cpp
+	<windows.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+
+1574336863 source:c:\users\mikkel\documents\github\battleships\server\main.cpp
+	<windows.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<stdlib.h>
+	<stdio.h>
+	<iostream>
+
