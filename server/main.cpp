@@ -17,64 +17,90 @@
 
 using namespace std;
 
-void threadfunc(SOCKET ClientSocket, string msg){
+void threadfunc(SOCKET Client, SOCKET otherClient, string msg){
 
-    cout << msg << endl;
+    // Setup
+    int iSendResult;
+    char recvbuf[DEFAULT_BUFLEN ];
+    int recvbuflen = DEFAULT_BUFLEN;
+    int iResult;
+
+    while(true){
+
+        // Block the program, waiting for buffer from client.
+        iResult = recv(Client, recvbuf, recvbuflen, 0);
+
+        // If iResult is 0, that means the client closed the connection.
+        if (iResult > 0){
+
+            // Make the last index a null, because C uses null terminators when displaying strings.
+            recvbuf[(int)strlen(recvbuf)] = NULL;
+
+            // Send the input to the other client.
+            iSendResult = send(otherClient, recvbuf, (int)strlen(recvbuf), 0);
+        }
+        else if ( iResult == 0 ){
+            printf("Connection closed\n");
+        }
+    }
 
 }
 
 int main()
 {
 
+    // TODO: what the fuck is wsadata.
     WSADATA wsaData;
     int iResult;
 
+    // Set up the sockets.
     SOCKET ListenSocket = -1;
     SOCKET ClientSocket1 = -1;
     SOCKET ClientSocket2 = -1;
 
-
+    // TODO
     struct addrinfo *result = NULL;
     struct addrinfo hints;
 
-    int iSendResult;
-    char recvbuf[DEFAULT_BUFLEN ];
-    int recvbuflen = DEFAULT_BUFLEN;
+    // TODO
     iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
 
+    // TODO
     ZeroMemory(&hints, sizeof(hints));
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
 
+    // TODO
     iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 
+    // TODO
     ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 
+    // TODO
     iResult = bind( ListenSocket, result->ai_addr, (int)result->ai_addrlen);
 
+    // TODO
     freeaddrinfo(result);
 
+    // TODO
     iResult = listen(ListenSocket, BACKLOG);
 
+    // Listen for 2 clients.
     ClientSocket1 = accept(ListenSocket, NULL, NULL);
     ClientSocket2 = accept(ListenSocket, NULL, NULL);
 
 
+    // Set up the threads, calling function threadFunc and parsing in the arguments.
+    thread client1(threadfunc, ClientSocket1, ClientSocket2, "1");
+    thread client2(threadfunc, ClientSocket2, ClientSocket1, "2");
 
-    thread client1(threadfunc, ClientSocket1, "1");
-
-    thread client2(threadfunc, ClientSocket2, "2");
-
+    // Close the ListenSocket, as we're not actively listening for more clients.
     closesocket(ListenSocket);
 
     while(true){
-
-        client1.join();
-        client2.join();
-
+        // This loop makes sure the program doesn't terminate.
     }
-
 
     // iResult = shutdown(ClientSocket, 1);
 
