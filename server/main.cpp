@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <thread>
 
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
@@ -16,14 +17,22 @@
 
 using namespace std;
 
+void threadfunc(SOCKET ClientSocket, string msg){
+
+    cout << msg << endl;
+
+}
 
 int main()
 {
+
     WSADATA wsaData;
     int iResult;
 
     SOCKET ListenSocket = -1;
-    SOCKET ClientSocket = -1;
+    SOCKET ClientSocket1 = -1;
+    SOCKET ClientSocket2 = -1;
+
 
     struct addrinfo *result = NULL;
     struct addrinfo hints;
@@ -48,32 +57,29 @@ int main()
 
     iResult = listen(ListenSocket, BACKLOG);
 
-    ClientSocket = accept(ListenSocket, NULL, NULL);
+    ClientSocket1 = accept(ListenSocket, NULL, NULL);
+    ClientSocket2 = accept(ListenSocket, NULL, NULL);
+
+
+
+    thread client1(threadfunc, ClientSocket1, "1");
+
+    thread client2(threadfunc, ClientSocket2, "2");
 
     closesocket(ListenSocket);
 
     while(true){
-        iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
-        if (iResult > 0) {
-            recvbuf[iResult] = NULL;
-            printf("Bytes received: %d\n", iResult);
-            printf("Message received: %s\n", recvbuf);
 
-            cin >> ws;
-            string msgsend;
-            getline(cin, msgsend);
-            const char *sendbuf = msgsend.c_str();
-            iSendResult = send( ClientSocket, sendbuf, (int)strlen(sendbuf), 0 );
-            printf("Bytes sent: %d\n", iSendResult);
-        }
-        else if (iResult == 0)
-            printf("Connection closing...\n");
+        client1.join();
+        client2.join();
+
     }
 
-    iResult = shutdown(ClientSocket, 1);
 
-    closesocket(ClientSocket);
-    WSACleanup();
+    // iResult = shutdown(ClientSocket, 1);
+
+    // closesocket(ClientSocket);
+    // WSACleanup();
 
     return 0;
 }

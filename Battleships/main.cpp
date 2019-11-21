@@ -17,7 +17,7 @@ using namespace std;
 
 int main()
 {
-    int y=0;
+
     WSADATA wsaData;
     SOCKET ConnectSocket = -1;
     struct addrinfo *result = NULL,
