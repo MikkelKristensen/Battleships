@@ -9,9 +9,12 @@ How to run:
 
 The game is set to run on localhost by default, so simply do all of these steps on one computer.
 
+The binary files are either located in the Binaries folder inside of the zip file, or can be found in the project directories
+"Battleships/server/bin/Debug/" and "Battleships/client/bin/Debug/" respectively.
+
 1. Run the "server.exe" file. This has to run but can be minimized after starting it.
 
-2. Open "client.exe" twice. 
+2. Open "run client.bat" twice. Alternatively, open command prompt, navigate to the binary folder, and write "client.exe" in the window.
 
 After ship placement, the clients will the connect to the server and the game will initate.
 
