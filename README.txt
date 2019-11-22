@@ -39,38 +39,3 @@ Furthermore, they will be asked wheater they whish to use their "Super Attack", 
 If your opponent hit your ship, it will be marked with an X. If you hit an enemy ship, you are greeted with a "You hit!" message.
 
 When a player has destroyed all of the enemy ships, they win.
-
-===============================================
-Distribution of work:
-
-The program can be split into different parts:
-- Client networking
-- Server networking
-- Multithreading
-- Battleships
-
-Within battleships, these subcategories exist:
-- Base structure
-- Grid
-- addShip()
-- placeShips()
-- attack()
-- hasLost()
-- drawGrid()
-
-These areas were largely made in collaboration, and the commits on github are very misleading as collaborated code is still only committed by 1 person.
-However, each area had a main contributor, which can be seen below.
-
-========
-Frederik:
-
-Created the networking base, used for both client and server networking.
-Created multithreaded client sockets.
-Created the attack() function, along with the 3x3 attack.
-=======
-Mikkel:
-
-Fletched the networking base into the program, as it was created after the battleships code was written.
-Created the Base Structure and Grid.
-Stood for Grid-based functions, like addShip(), placeShips(), hasLost(), and drawGrid().
-===============================================
