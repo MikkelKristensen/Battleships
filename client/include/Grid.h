@@ -13,6 +13,7 @@ class Grid
         void drawGrid();
         bool addShip(int, pair<int, int>, string);
         bool attack(pair<int,int>,bool);
+        bool hasLost();
 
     protected:
 

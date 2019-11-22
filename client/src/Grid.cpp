@@ -4,8 +4,10 @@
 
 using namespace std;
 
+// Grid size.
 char mainGrid[10][10];
 
+// Definitions
 char SHIP = 'O';
 char DEAD = 'X';
 char WATER = '-';
@@ -24,10 +26,11 @@ Grid::Grid()
 
 bool Grid::addShip(int shipSize, pair<int, int> startPoint, string direction){
 
-    // The user input treats the top left corner as (1,1), but the program treats it as (0,0), so the user input is parsed into this format.
-    int x = startPoint.first - 1;
-    int y = startPoint.second - 1;
+    // Creates two variables x and y, and sets them as coordinates.
+    int x = startPoint.first;
+    int y = startPoint.second;
 
+    // If either x or y is out of bounds, return false. This check if already done before calling this function, but you can never be too safe.
     if(x > 9 || x < 0){
         return false;
     }
@@ -120,19 +123,22 @@ void Grid::drawGrid()
 }
 
 bool Grid::attack(pair<int,int> coords,bool super){
-// Creates two variables x and y, and sets them as coordinates.
+    // Creates two variables x and y, and sets them as coordinates.
     int x = coords.first;
     int y = coords.second;
 
-// Checks if super is true to
+    // hit is false by default, but is set to true if a ship is hit.
+    bool hit = false;
+
+    // If super is true, initiate a 3x3 attack.
     if (super){
         for(int l = x - 1; l <= x + 1; l++){
             for (int i = y - 1; i <= y + 1; i++){
                 try {
                     if (mainGrid[l][i] == SHIP){
                         mainGrid[l][i] = DEAD;
+                        hit = true;
                     }
-
                 }
                 catch(int e){
                     cout<<"DEBUG: Shooting at " << l << ", " << i << " failed."<<endl;
@@ -140,14 +146,27 @@ bool Grid::attack(pair<int,int> coords,bool super){
             }
         }
     }
-    else{ // If not using a super attack.
+    else{ // If not using a super attack, simply attack a 1x1 area at (x,y).
         if(mainGrid[x][y] == SHIP){
             mainGrid[x][y] = DEAD;
-            return true;
-        }
-        else{
-            return false;
+            hit = true;
         }
     }
+
+    return hit;
+}
+
+bool Grid::hasLost(){
+
+    // Look through the entire map for a ship. If a ship is found, return false as the user has not lost.
+    // If no ship is found and the for-loop concludes, return true as the user has lost.
+    for(int x = 0; x < 10; x++)
+    {
+        for(int y = 0; y < 10; y++)
+        {
+            if(mainGrid[x][y] == SHIP){ return false; }
+        }
+    }
+    return true;
 }
 

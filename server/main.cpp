@@ -19,7 +19,7 @@ using namespace std;
 
 void threadfunc(SOCKET Client, SOCKET otherClient, string msg){
 
-    // Setup
+    // Thread setup
     int iSendResult;
     char recvbuf[DEFAULT_BUFLEN ];
     int recvbuflen = DEFAULT_BUFLEN;
@@ -27,7 +27,7 @@ void threadfunc(SOCKET Client, SOCKET otherClient, string msg){
 
     while(true){
 
-        // Block the program, waiting for buffer from client.
+        // Block the program, waiting for data from client.
         iResult = recv(Client, recvbuf, recvbuflen, 0);
 
         // If iResult is 0, that means the client closed the connection.
@@ -49,7 +49,7 @@ void threadfunc(SOCKET Client, SOCKET otherClient, string msg){
 int main()
 {
 
-    // TODO: what the fuck is wsadata.
+    // WSADATA allows the application to get information from windows about the required socket version, and how to implement it.
     WSADATA wsaData;
     int iResult;
 
@@ -58,38 +58,37 @@ int main()
     SOCKET ClientSocket1 = -1;
     SOCKET ClientSocket2 = -1;
 
-    // TODO
+    // addrinfo holds informatio about the host.
     struct addrinfo *result = NULL;
     struct addrinfo hints;
 
     // TODO
     iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
 
-    // TODO
+    // Setup hints, which is an addrinfo that will act as a template for what information is returned by getaddrinfo()
     ZeroMemory(&hints, sizeof(hints));
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
 
-    // TODO
+    // Gets address info from the host, which is localhost as the supplied IP is null. Uses hints to figure out which data to get, and stores it in result.
     iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 
-    // TODO
+    // Setup a socket that will be used to listen for incoming connections.
     ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 
-    // TODO
+    // Bind the socket to local address ai_addr.
     iResult = bind( ListenSocket, result->ai_addr, (int)result->ai_addrlen);
 
-    // TODO
+    // Frees up the addrinfo that getaddrinfo has stored in result, as we don't need it anymore.
     freeaddrinfo(result);
 
-    // TODO
+    // Starts listening for incoming connections
     iResult = listen(ListenSocket, BACKLOG);
 
     // Listen for 2 clients.
     ClientSocket1 = accept(ListenSocket, NULL, NULL);
     ClientSocket2 = accept(ListenSocket, NULL, NULL);
-
 
     // Set up the threads, calling function threadFunc and parsing in the arguments.
     thread client1(threadfunc, ClientSocket1, ClientSocket2, "1");
@@ -101,11 +100,5 @@ int main()
     while(true){
         // This loop makes sure the program doesn't terminate.
     }
-
-    // iResult = shutdown(ClientSocket, 1);
-
-    // closesocket(ClientSocket);
-    // WSACleanup();
-
     return 0;
 }

@@ -10,7 +10,7 @@
 1574344251 c:\users\mikkel\documents\github\battleships\client\include\connecttoserver.h
 	<Grid.h>
 
-1574346905 source:c:\users\mikkel\documents\github\battleships\client\src\connecttoserver.cpp
+1574415710 source:c:\users\mikkel\documents\github\battleships\client\src\connecttoserver.cpp
 	<windows.h>
 	<winsock2.h>
 	<ws2tcpip.h>
@@ -20,12 +20,12 @@
 	<Grid.h>
 	"ConnectToServer.h"
 
-1574347421 source:c:\users\mikkel\documents\github\battleships\client\src\grid.cpp
+1574415074 source:c:\users\mikkel\documents\github\battleships\client\src\grid.cpp
 	"Grid.h"
 	<iostream>
 	<string>
 
-1574343863 c:\users\mikkel\documents\github\battleships\client\include\grid.h
+1574414912 c:\users\mikkel\documents\github\battleships\client\include\grid.h
 	<string>
 	<iostream>
 
